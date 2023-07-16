@@ -5,25 +5,12 @@ import { useSingleProductsQuery } from '@/redux/api/apiSlice';
 import { addToCart } from '@/redux/features/cart/cartSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { IProduct } from '@/types/globalTypes';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function ProductDetails() {
   const { id } = useParams();
 
-  // //! Temporary code, should be replaced with redux
-  // const [data, setData] = useState<IProduct[]>([]);
-  // useEffect(() => {
-  //   fetch('../../public/data.json')
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, []);
-
-  // const product = data?.find((item) => item._id === Number(id));
-
-  // //! Temporary code ends here
-
-  const { data: product, isLoading } = useSingleProductsQuery(id);
+  const { data: product } = useSingleProductsQuery(id);
 
   const dispatch = useAppDispatch();
 
@@ -54,7 +41,7 @@ export default function ProductDetails() {
           <Button onClick={() => handleAddProduct(product)}>Add to cart</Button>
         </div>
       </div>
-      <ProductReview />
+      <ProductReview id={id} />
     </>
   );
 }
