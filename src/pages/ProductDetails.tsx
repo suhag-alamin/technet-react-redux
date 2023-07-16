@@ -1,5 +1,8 @@
 import ProductReview from '@/components/ProductReview';
 import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/use-toast';
+import { addToCart } from '@/redux/features/cart/cartSlice';
+import { useAppDispatch } from '@/redux/hooks';
 import { IProduct } from '@/types/globalTypes';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -19,6 +22,18 @@ export default function ProductDetails() {
 
   //! Temporary code ends here
 
+  const dispatch = useAppDispatch();
+
+  const handleAddProduct = (product: IProduct | undefined) => {
+    if (!product) {
+      return;
+    }
+    dispatch(addToCart(product));
+    toast({
+      description: 'Product Added',
+    });
+  };
+
   return (
     <>
       <div className="flex max-w-7xl mx-auto items-center border-b border-gray-300">
@@ -33,7 +48,7 @@ export default function ProductDetails() {
               <li key={feature}>{feature}</li>
             ))}
           </ul>
-          <Button>Add to cart</Button>
+          <Button onClick={() => handleAddProduct(product)}>Add to cart</Button>
         </div>
       </div>
       <ProductReview />
