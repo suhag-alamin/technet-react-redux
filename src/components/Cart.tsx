@@ -1,10 +1,9 @@
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from './ui/sheet';
+  addToCart,
+  removeFromCart,
+  removeOne,
+} from '@/redux/features/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   HiMinus,
   HiOutlinePlus,
@@ -12,24 +11,17 @@ import {
   HiOutlineTrash,
 } from 'react-icons/hi';
 import { Button } from './ui/button';
-import { IProduct } from '@/types/globalTypes';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
-  addToCart,
-  removeFromCart,
-  removeOne,
-} from '@/redux/features/cart/cartSlice';
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from './ui/sheet';
 
 export default function Cart() {
-  const { products } = useAppSelector((state) => state.cart);
+  const { products, total } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
-
-  //! Dummy data
-
-  // const products: IProduct[] = [];
-  const total = 0;
-
-  //! **
 
   return (
     <Sheet>
